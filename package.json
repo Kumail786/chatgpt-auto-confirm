@@ -1,0 +1,61 @@
+{
+  "name": "chatgpt-auto-confirm",
+  "version": "1.0.0",
+  "description": "Automatically responds 'Yes' to ChatGPT confirmation prompts to keep conversations flowing without interruption",
+  "main": "background.js",
+  "scripts": {
+    "build": "echo 'No build process needed for this extension'",
+    "dev": "echo 'Load extension in Chrome for development'",
+    "test": "echo 'Run manual tests on ChatGPT'",
+    "lint": "echo 'Linting not configured yet'",
+    "type-check": "echo 'TypeScript not configured yet'",
+    "package": "zip -r chatgpt-auto-confirm.zip . -x '*.git*' 'node_modules/*' '*.DS_Store'",
+    "clean": "rm -rf chatgpt-auto-confirm.zip"
+  },
+  "keywords": [
+    "chatgpt",
+    "chrome-extension",
+    "automation",
+    "productivity",
+    "ai",
+    "openai",
+    "confirmation",
+    "auto-respond"
+  ],
+  "author": {
+    "name": "ChatGPT Auto Confirm Team",
+    "email": "support@chatgptautoconfirm.com",
+    "url": "https://github.com/Kumail786/chatgpt-auto-confirm"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kumail786/chatgpt-auto-confirm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Kumail786/chatgpt-auto-confirm/issues"
+  },
+  "homepage": "https://github.com/Kumail786/chatgpt-auto-confirm#readme",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "devDependencies": {},
+  "dependencies": {},
+  "manifest": {
+    "version": 3,
+    "permissions": [
+      "activeTab",
+      "scripting",
+      "storage",
+      "tabs"
+    ],
+    "host_permissions": [
+      "https://chat.openai.com/*",
+      "https://chatgpt.com/*",
+      "https://*.chatgpt.com/*"
+    ]
+  },
+  "browserslist": [
+    "Chrome >= 88"
+  ]
+}

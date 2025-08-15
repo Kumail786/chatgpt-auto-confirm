@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ChatGPT Auto Confirm</title>
+    <style>
+        body {
+            width: 300px;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin: 0;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        h1 {
+            margin: 0 0 15px 0;
+            font-size: 18px;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .description {
+            font-size: 14px;
+            line-height: 1.4;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .toggle-label {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .toggle-switch.active {
+            background: #4CAF50;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(26px);
+        }
+        
+        .status {
+            font-size: 12px;
+            text-align: center;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+        
+        .features {
+            margin-top: 15px;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        .features ul {
+            margin: 5px 0;
+            padding-left: 20px;
+        }
+        
+        .features li {
+            margin-bottom: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 ChatGPT Auto Confirm</h1>
+        
+        <div class="description">
+            Automatically responds "Yes" to ChatGPT confirmation prompts to keep conversations flowing without interruption.
+            <br><br>
+            <strong>Per-tab control:</strong> Each ChatGPT tab can be enabled/disabled independently.
+        </div>
+        
+        <div class="toggle-container">
+            <span class="toggle-label">Auto Confirm</span>
+            <div class="toggle-switch" id="toggleSwitch">
+                <div class="toggle-slider"></div>
+            </div>
+        </div>
+        
+        <div class="status" id="status">
+            Loading...
+        </div>
+        
+        <div class="features">
+            <strong>Features:</strong>
+            <ul>
+                <li>Detects confirmation prompts automatically</li>
+                <li>Responds with "Yes" instantly</li>
+                <li>Works on all ChatGPT conversations</li>
+                <li>Per-tab independent control</li>
+                <li>Easy toggle on/off per tab</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script src="popup.js"></script>
+</body>
+</html>

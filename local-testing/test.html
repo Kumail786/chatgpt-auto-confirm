@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ChatGPT Auto Confirm Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .enabled { background-color: #d4edda; color: #155724; }
+        .disabled { background-color: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h1>ChatGPT Auto Confirm Extension Test</h1>
+    
+    <div class="test-section">
+        <h2>Extension Status</h2>
+        <div id="extensionStatus" class="status">Checking...</div>
+        <button onclick="checkStatus()">Check Status</button>
+        <button onclick="toggleExtension()">Toggle Extension</button>
+        <button onclick="injectContentScript()">Inject Content Script</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test Instructions</h2>
+        <ol>
+            <li>Install the extension in Chrome</li>
+            <li>Go to <a href="https://chat.openai.com" target="_blank">ChatGPT</a></li>
+            <li>Start a conversation and ask ChatGPT something that might trigger a confirmation prompt</li>
+            <li>Check if the extension automatically responds "Yes"</li>
+            <li>Use the toggle in the extension popup to enable/disable</li>
+        </ol>
+    </div>
+    
+    <div class="test-section">
+        <h2>Background Functionality Test</h2>
+        <p>To test background functionality:</p>
+        <ol>
+            <li>Open ChatGPT in a tab</li>
+            <li>Switch to another tab or application</li>
+            <li>The extension should continue monitoring ChatGPT in the background</li>
+            <li>When you return to ChatGPT, it should have automatically responded to any confirmation prompts</li>
+        </ol>
+    </div>
+
+    <script>
+        function checkStatus() {
+            if (typeof chrome !== 'undefined' && chrome.runtime) {
+                chrome.runtime.sendMessage({ action: 'getStatus' }, (response) => {
+                    const statusDiv = document.getElementById('extensionStatus');
+                    if (chrome.runtime.lastError) {
+                        statusDiv.textContent = 'Error: Extension not found or not loaded';
+                        statusDiv.className = 'status disabled';
+                    } else if (response && response.enabled !== undefined) {
+                        statusDiv.textContent = response.enabled ? 'Extension is ENABLED' : 'Extension is DISABLED';
+                        statusDiv.className = response.enabled ? 'status enabled' : 'status disabled';
+                    } else {
+                        statusDiv.textContent = 'Unknown status';
+                        statusDiv.className = 'status disabled';
+                    }
+                });
+            } else {
+                document.getElementById('extensionStatus').textContent = 'Chrome extension API not available';
+            }
+        }
+        
+        function toggleExtension() {
+            if (typeof chrome !== 'undefined' && chrome.runtime) {
+                chrome.runtime.sendMessage({ action: 'toggle' }, (response) => {
+                    if (response && response.enabled !== undefined) {
+                        checkStatus();
+                    }
+                });
+            }
+        }
+        
+        function injectContentScript() {
+            if (typeof chrome !== 'undefined' && chrome.tabs) {
+                chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                    if (tabs && tabs.length > 0) {
+                        chrome.scripting.executeScript({
+                            target: { tabId: tabs[0].id },
+                            files: ['content.js']
+                        }).then(() => {
+                            alert('Content script injected successfully! Check the console for logs.');
+                        }).catch((error) => {
+                            alert('Error injecting content script: ' + error.message);
+                        });
+                    } else {
+                        alert('No active tab found.');
+                    }
+                });
+            } else {
+                alert('Chrome scripting API not available.');
+            }
+        }
+
+        // Check status on page load
+        window.addEventListener('load', () => {
+            setTimeout(checkStatus, 1000);
+        });
+    </script>
+</body>
+</html>
